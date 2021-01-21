@@ -30,7 +30,7 @@ public class Duke {
         System.out.println("Nice! I've marked this task as done: " + "\n" + task.toString());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -41,6 +41,8 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while(sc.hasNextLine()) {
             String input = sc.nextLine();
+            if(input.equals(""))
+                throw new EmptyArgument("☹ OOPS!!! The description of a todo cannot be empty.");
             if(input.startsWith("done")) {
                 String[] spiltInput = input.split("\\s+");
                 int taskNumber = Integer.parseInt(spiltInput[1]);
@@ -114,8 +116,7 @@ public class Duke {
             } else if (input.equals("list")) {
                 listTask();
             } else {
-                //addTask(input);
-                System.out.println("End");
+                throw new InvalidArgument("Your input is invalid, Please try again");
             }
         }
     }
